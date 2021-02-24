@@ -1,0 +1,25 @@
+module.exports = {
+  type: 'object',
+  required: [
+    'NODE_ENV',
+    'LOG_LEVEL',
+    'ADDRESS',
+    'PORT',
+    'DATABASE',
+    'DATABASE_HOST',
+    'DATABASE_PORT',
+    'DATABASE_USER',
+    'DATABASE_PASSWORD',
+  ],
+  properties: {
+    NODE_ENV: { type: 'string', default: 'development' },
+    LOG_LEVEL: { type: 'string', default: 'info' },
+    ADDRESS: { type: 'string', default: 'localhost' },
+    PORT: { type: 'integer', default: 3000 },
+    DATABASE: { type: 'string', default: 'fastify' },
+    DATABASE_HOST: { type: 'string', default: 'localhost' },
+    DATABASE_PORT: { type: 'integer', default: '5432' },
+    DATABASE_USER: { type: 'string', default: 'root' },
+    DATABASE_PASSWORD: { type: 'string', default: 'changeme!' },
+  },
+};

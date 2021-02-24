@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>fastify-simple-starter-kit</title>
+    <link rel="stylesheet" href="/public/app.css">
+  </head>
+
+  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    {% include "partials/nav.njk" %}
+
+    <!--Container-->
+    <div class="bg-gray-100 h-screen">
+      <div class="container mx-auto pt-24 md:pt-16 px-6">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+
+    <script type="module" src="/public/js/index.js"></script>
+    {% block script %}{% endblock %}
+
+  </body>
+</html>

@@ -1,0 +1,60 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <div x-data="todos()" x-init="fetchAllTodos()">
+    <div class="max-w-screen-md mx-auto">
+      <div class="bg-white shadow px-6 py-8">
+        <h1 class="text-2xl text-center font-bold mb-4">Simple ToDo App</h1>
+        <input
+        x-model="newTodo"
+        @keydown.enter="addTodo"
+        type="text"
+        placeholder="What do you want to do?"
+        class="px-4 py-6 mb-10 w-full placeholder-gray-400 text-gray-700 relative bg-white rounded text-base shadow outline-none focus:outline-none focus:shadow-outline"/>
+
+        <div class="mb-10">
+          <div class="grid grid-cols-1 sm:grid-cols-3">
+            <button
+              @click="visibility = 'all'"
+              :class="{'bg-pink-800': visibility == 'all'}"
+              class="bg-pink-500 text-white active:bg-pink-600 disabled:opacity-50 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
+              All
+            </button>
+            <button
+              @click="visibility = 'active'"
+              :class="{'bg-pink-800': visibility == 'active'}"
+              class="bg-pink-500 text-white active:bg-pink-600 disabled:opacity-50 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
+              Active
+            </button>
+            <button
+              @click="visibility = 'completed'"
+              :class="{'bg-pink-800': visibility == 'completed'}"
+              class="bg-pink-500 text-white active:bg-pink-600 disabled:opacity-50 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
+              Completed
+            </button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-y-5">
+
+          <template x-for="(todo, index) in filteredTodos()" :key="todo">
+            <div class="flex flex-row items-center justify-start pb-3 border-b-2 border-gray-200">
+              <label class="inline-flex items-center mr-5">
+                <input type="checkbox" class="form-checkbox h-4 w-4 text-gray-600" @change="toggleTodoDone(todo.id)" :checked="todo.done">
+              </label>
+              <div class="flex-grow" x-text="todo.title" :class="{ 'line-through': todo.done }"></div>
+              <div class="flex-none">
+                <a @click.prevent="deleteTodo(todo.id)" class="text-purple-600 underline" href="#">Delete</a>
+              </div>
+            </div>
+          </template>
+
+        </div>
+
+        <div class="text-l mt-8">
+          <span x-text="countTodosDone()"></span> / <span x-text="countTodos()"></span> ToDos completed!
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

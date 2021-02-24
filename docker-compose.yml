@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:alpine
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fastify
+    ports:
+      - 5432:5432
+    networks:
+      - app
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - app
+
+volumes:
+  dbdata:
+
+networks:
+  app:

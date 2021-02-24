@@ -1,0 +1,74 @@
+{
+  "name": "fastify-simple-starter-kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node start.js",
+    "dev:css": "cross-env NODE_ENV=development postcss src/assets/css/app.css -o public/app.css -w",
+    "dev:js": "snowpack build --watch",
+    "dev:sync": "browser-sync start --config bs-config.js",
+    "dev:node": "cross-env NODE_ENV=development fastify start -w --ignore-watch='src/templates src/assets public node_modules' -l debug -P dev.js",
+    "dev": "npm-run-all clean --parallel dev:*",
+    "build:css": "cross-env NODE_ENV=production postcss src/assets/css/app.css -o public/app.css",
+    "build:js": "cross-env NODE_ENV=production snowpack build",
+    "build": "run-s clean build:*",
+    "format:js": "prettier '**/*.js' --write && eslint '**/*.js' --fix",
+    "format:json": "prettier '**/*.json' --write",
+    "format": "run-s format:*",
+    "lint": "eslint --ext .js .",
+    "knex": "knex --knexfile ./knexfile.js",
+    "knex:migrate:make": "knex --knexfile ./knexfile.js migrate:make",
+    "knex:migrate:latest": "knex --knexfile ./knexfile.js migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile ./knexfile.js migrate:rollback",
+    "test": "tap test/**/*.test.js",
+    "clean": "rimraf public/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alpinejs": "^2.8.1",
+    "autoprefixer": "^10.2.4",
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "fastify": "^3.12.0",
+    "fastify-autoload": "^3.5.2",
+    "fastify-cli": "^2.8.0",
+    "fastify-env": "^2.1.0",
+    "fastify-plugin": "^3.0.0",
+    "fastify-static": "^4.0.1",
+    "fastify-swagger": "^4.3.1",
+    "is-docker": "^2.1.1",
+    "knex": "^0.21.18",
+    "nunjucks": "^3.2.3",
+    "objection": "^2.2.14",
+    "pg": "^8.5.1",
+    "point-of-view": "^4.13.0",
+    "ramda": "^0.27.1",
+    "tailwindcss": "^2.0.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.14",
+    "cross-env": "^7.0.3",
+    "cssnano": "^4.1.10",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "husky": "^5.1.1",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^8.3.1",
+    "prettier": "2.2.1",
+    "pretty-quick": "^3.1.0",
+    "rimraf": "^3.0.2",
+    "snowpack": "^3.0.13",
+    "tap": "^14.11.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
